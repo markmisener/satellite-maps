@@ -1,13 +1,11 @@
 from flask import Flask, request, render_template
-import json
+import os
 
 
 # configure flask app
 app = Flask(__name__)
 app.config.from_envvar('APP_CONFIG_FILE', silent=True)
-
-# get access token from config file
-MAPBOX_ACCESS_TOKEN = app.config['MAPBOX_ACCESS_TOKEN']
+MAPBOX_ACCESS_TOKEN = os.environ.get('MAPBOX_ACCESS_TOKEN', None)
 
 # display at homepage path
 @app.route('/')
