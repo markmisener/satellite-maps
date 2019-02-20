@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template
 import json
-import settings
 
 
 # configure flask app
