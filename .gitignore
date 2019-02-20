@@ -1,0 +1,4 @@
+dev-env
+.DS_Store
+settings.py
+*.pyc
