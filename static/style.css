@@ -165,3 +165,10 @@ a:hover {
 .mapboxgl-popup-anchor-top > .mapboxgl-popup-tip {
   border-bottom-color: #91c949;
 }
+
+#menu {
+  position: absolute;
+  background: #fff;
+  padding: 3px;
+  font-family: 'Open Sans', sans-serif;
+}

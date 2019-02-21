@@ -2,29 +2,55 @@
 <html>
   <head>
       <meta charset='utf-8' />
-      <title>Mapbox Satellite Streets</title>
+      <title>Satellite Maps</title>
       <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
       <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet'>
       <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.40.0/mapbox-gl.js'></script>
       <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.40.0/mapbox-gl.css' rel='stylesheet' />
+      <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.2/mapbox-gl-geocoder.min.js'></script>
+      <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.2/mapbox-gl-geocoder.css' type='text/css'/>
       <link href='static/style.css' rel='stylesheet' />
+      <link rel="shortcut icon" href="./static/favicon.ico" type="image/x-icon" />
 
   </head>
   <body>
   <div id='map' class='map'> </div>
-
+  <div id='menu'>
+    <input id='satellite' type='radio' name='rtoggle' value='satellite'>
+    <label for='satellite'>satellite</label>
+    <input id='satellite-streets' type='radio' name='rtoggle' value='satellite' checked='checked'>
+    <label for='satellite'>satellite-streets</label>
+  </div>
   <script>
 
   mapboxgl.accessToken = '{{ MAPBOX_ACCESS_TOKEN }}'
+  mapbox_style_verion = '-v9'
 
   // This adds the map
   var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mmisener/cj80re2ku86jn2rqzkfq3kx8l',
+    style: 'mapbox://styles/mapbox/satellite-streets' + mapbox_style_verion,
     center: [0.000000, 0.000000],
     zoom: 0.0,
     scrollZoom: true
   });
+
+  var layerList = document.getElementById('menu');
+  var inputs = layerList.getElementsByTagName('input');
+
+  function switchLayer(layer) {
+    var layerId = layer.target.id;
+    map.setStyle('mapbox://styles/mapbox/' + layerId + mapbox_style_verion);
+  }
+
+  for (var i = 0; i < inputs.length; i++) {
+    inputs[i].onclick = switchLayer;
+  }
+
+  map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+  }));
+
   </script>
   </body>
 </html>
