@@ -21,12 +21,12 @@
     <input id='satellite-streets' type='radio' name='rtoggle' value='satellite' checked='checked'>
     <label for='satellite'>satellite-streets</label>
   </div>
+  <pre id='info'></pre>
   <script>
 
   mapboxgl.accessToken = '{{ MAPBOX_ACCESS_TOKEN }}'
   mapbox_style_verion = '-v9'
 
-  // This adds the map
   var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/satellite-streets' + mapbox_style_verion,
@@ -50,6 +50,11 @@
   map.addControl(new MapboxGeocoder({
     accessToken: mapboxgl.accessToken
   }));
+
+  map.on('mousemove', function (e) {
+    document.getElementById('info').innerHTML =
+    JSON.stringify(e.lngLat);
+  });
 
   </script>
   </body>
