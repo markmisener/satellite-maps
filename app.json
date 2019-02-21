@@ -1,0 +1,25 @@
+{
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "description": "a simple satellite map",
+  "env": {
+    "MAPBOX_ACCESS_TOKEN": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "satellite-maps",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
