@@ -1,5 +1,7 @@
-from flask import Flask, request, render_template
+""" starts the flask app """
+
 import os
+from flask import Flask, request, render_template
 
 
 # configure flask app
