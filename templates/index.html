@@ -51,10 +51,12 @@
     accessToken: mapboxgl.accessToken
   }));
 
-  map.on('mousemove', function (e) {
-    document.getElementById('info').innerHTML =
-    JSON.stringify(e.lngLat);
-  });
+  map.addControl(new mapboxgl.GeolocateControl({
+    positionOptions: {
+      enableHighAccuracy: true
+    },
+    trackUserLocation: true
+  }));
 
   map.on('click', (e) => {
     feature = JSON.stringify(e.lngLat);
