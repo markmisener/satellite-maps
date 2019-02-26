@@ -21,7 +21,7 @@
     <input id='satellite-streets' type='radio' name='rtoggle' value='satellite' checked='checked'>
     <label for='satellite'>satellite-streets</label>
   </div>
-  <pre id='info'></pre>
+  <div id='info'>Copied latitude and longitude to clipboard.</div>
   <script>
 
   mapboxgl.accessToken = '{{ MAPBOX_ACCESS_TOKEN }}'
@@ -56,6 +56,26 @@
     JSON.stringify(e.lngLat);
   });
 
+  map.on('click', (e) => {
+    feature = JSON.stringify(e.lngLat);
+    copyToClipboard(feature)
+    showInfo()
+  })
+
+  function copyToClipboard(str) {
+    const el = document.createElement('textarea');
+    el.value = str;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+  }
+
+  function showInfo() {
+    var x = document.getElementById('info');
+    x.className = 'show';
+    setTimeout(function(){ x.className = x.className.replace('show', ''); }, 2000);
+  }
   </script>
   </body>
 </html>

@@ -174,15 +174,20 @@ a:hover {
 }
 
 #info {
-  display: block;
-  position: relative;
-  margin: 0px auto;
-  width: 30%;
-  padding: 3px;
-  border: none;
-  border-radius: 3px;
-  font-size: 12px;
-  text-align: center;
-  color: #222;
-  background: #fff;
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px;
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    left: 50%;
+    bottom: 30px;
+}
+
+#info.show {
+    visibility: visible;
+    animation: fadein 0.5s, fadeout 0.3s 1.7s;
 }
