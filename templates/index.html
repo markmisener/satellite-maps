@@ -27,13 +27,30 @@
   mapboxgl.accessToken = '{{ MAPBOX_ACCESS_TOKEN }}'
   mapbox_style_verion = '-v9'
 
+  var lat = {{ lat }}
+  var lon = {{ lon }}
+
+  if (lat === null && lon === null) {
+    var center = [0.000000, 0.000000]
+    var zoom = 0.0
+  } else {
+    var center = [lon, lat]
+    var zoom = 18.0
+  }
+
   var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/satellite-streets' + mapbox_style_verion,
-    center: [0.000000, 0.000000],
-    zoom: 0.0,
+    center: center,
+    zoom: zoom,
     scrollZoom: true
   });
+
+  if (lat !== null && lon !== null) {
+    new mapboxgl.Marker()
+      .setLngLat([lon, lat])
+      .addTo(map);
+  }
 
   var layerList = document.getElementById('menu');
   var inputs = layerList.getElementsByTagName('input');
