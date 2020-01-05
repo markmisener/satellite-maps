@@ -1,0 +1,33 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v2.2.3
+  hooks:
+    - id: trailing-whitespace
+    - id: end-of-file-fixer
+    - id: check-yaml
+    - id: flake8
+      args: [
+          # E501 let black handle all line length decisions
+          # W503 black conflicts with "line break before operator" rule
+          # E203 black conflicts with "whitespace before ':'" rule
+          # W605 false positive on our regex strings
+          '--ignore=E501,W503,E203,W605']
+- repo: https://github.com/psf/black
+  rev: 19.3b0
+  hooks:
+    - id: black
+- repo: https://github.com/PyCQA/pydocstyle
+  rev: eebb17b37401235a79836ca83b6135b76d457c77
+  hooks:
+    - id: pydocstyle
+      args: [
+        '--convention=google',
+        # Don't require docstrings for packages and modules
+        '--add-ignore=D100,D104',
+        # Don't require docstrings for tests
+        '--match=(?!tests/).*\.py'
+      ]
+-   repo: https://github.com/asottile/reorder_python_imports
+    rev: v1.6.1
+    hooks:
+      - id: reorder-python-imports
