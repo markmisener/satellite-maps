@@ -1,7 +1,5 @@
 #  🌎 [A simple satellite map](https://satellite-maps.herokuapp.com/) 🌎
 
-[![Build status](https://travis-ci.com/markmisener/satellite-maps.svg?branch=master)](https://github.com/markmisener/satellite-maps/)
-
 ## Development:
 
 ### Running locally
