@@ -1,10 +1,21 @@
 #  🌎 [A simple satellite map](https://satellite-maps.herokuapp.com/) 🌎
 
-### To run locally:
+[![Build status](https://travis-ci.com/markmisener/satellite-maps.svg?branch=master)](https://github.com/markmisener/satellite-maps/)
 
+## Development:
+
+### Running locally
 ```sh
 export MAPBOX_ACCESS_TOKEN='<...>' # Get your Mapbox access token from www.mapbox.com/account
-sh start.sh
+make run-local
+```
+
+### Testing
+
+Tests will fail if coverage is under 94%.
+
+```sh
+make test
 ```
 
 ### URL Parameters

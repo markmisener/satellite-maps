@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: install clean pre-commit
+.PHONY: install clean pre-commit run-local test
 
 venv:
 	virtualenv --python=python3.6 dev-env
@@ -22,4 +22,4 @@ run-local: install
 
 test: install
 		source dev-env/bin/activate; \
-		python -m unittest -v tests/test_app.py
+		coverage run -m unittest discover && coverage report

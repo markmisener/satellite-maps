@@ -2,3 +2,4 @@ dev-env
 .DS_Store
 *.pyc
 __pycache__
+.coverage
