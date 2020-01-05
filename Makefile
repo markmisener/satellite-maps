@@ -19,3 +19,7 @@ pre-commit: install
 run-local: install
 	source dev-env/bin/activate; \
 	sh start.sh
+
+test: install
+		source dev-env/bin/activate; \
+		python -m unittest -v tests/test_app.py
