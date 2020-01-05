@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: install clean pre-commit
+.PHONY: install clean pre-commit run-local test
 
 venv:
 	virtualenv --python=python3.6 dev-env
