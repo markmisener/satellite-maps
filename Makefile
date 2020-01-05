@@ -22,4 +22,4 @@ run-local: install
 
 test: install
 		source dev-env/bin/activate; \
-		python -m unittest -v tests/test_app.py
+		coverage run -m unittest discover && coverage report

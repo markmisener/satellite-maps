@@ -25,7 +25,7 @@ repos:
         # Don't require docstrings for packages and modules
         '--add-ignore=D100,D104',
         # Don't require docstrings for tests
-        '--match=(?!tests/).*\.py'
+        '--match=(?!test/).*\.py'
       ]
 -   repo: https://github.com/asottile/reorder_python_imports
     rev: v1.6.1
