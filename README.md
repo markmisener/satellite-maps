@@ -1,4 +1,6 @@
-#  🌎 [A simple satellite map](https://satellite-maps.herokuapp.com/) 🌎
+#  🌎 A simple satellite map 🌎
+
+Check it out [here](https://satellite-maps.herokuapp.com/).
 
 ## Development:
 
