@@ -20,7 +20,12 @@
 
   mapboxgl.accessToken = '{{ MAPBOX_ACCESS_TOKEN }}'
 
-  var map = initMap();
+  var lon = {{ lon }} || 0.0;
+  var lat = {{ lat }} || 0.0;
+  var zoom = (lon === 0.0 && lat === 0.0) ? 0.0 : 18.0;
+
+  var map = initMap(lon, lat, zoom);
+
   var geocoder = map.addControl(new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
     mapboxgl: mapboxgl
@@ -32,20 +37,17 @@
     displayInfo()
   })
 
-  function initMap(){
+  function initMap(lon, lat, zoom){
     /*
       * Initialize a map with or without coordinates from URL parameters.
       * If coordinates are given, display a zoom 18 map centered on the coordinates
         otherwise, display a zoom 0 map centered at Mapbox's default coordinates.
     */
-    var lat = {{ lat }} || 0.0;
-    var lon = {{ lon }} || 0.0;
-    var zoom = (lat === 0.0) ? 0.0 : 18.0;
 
     var map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/satellite-streets-v9',
-      center: [lat, lon],
+      style: 'mapbox://styles/mapbox/satellite-streets-v11',
+      center: [lon, lat],
       zoom: zoom,
       scrollZoom: true
     });
