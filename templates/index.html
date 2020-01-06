@@ -15,73 +15,52 @@
   </head>
   <body>
   <div id='map' class='map'> </div>
-  <div id='menu'>
-    <input id='satellite' type='radio' name='rtoggle' value='satellite'>
-    <label for='satellite'>satellite</label>
-    <input id='satellite-streets' type='radio' name='rtoggle' value='satellite' checked='checked'>
-    <label for='satellite'>satellite-streets</label>
-  </div>
-  <div id='info'>Copied latitude and longitude to clipboard.</div>
+  <div id='info'>Copied coordinates to clipboard.</div>
   <script>
 
   mapboxgl.accessToken = '{{ MAPBOX_ACCESS_TOKEN }}'
-  mapbox_style_verion = '-v9'
 
-  var lat = {{ lat }}
-  var lon = {{ lon }}
-
-  if (lat === null && lon === null) {
-    var center = [0.000000, 0.000000]
-    var zoom = 0.0
-  } else {
-    var center = [lon, lat]
-    var zoom = 18.0
-  }
-
-  var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/satellite-streets' + mapbox_style_verion,
-    center: center,
-    zoom: zoom,
-    scrollZoom: true
-  });
-
-  if (lat !== null && lon !== null) {
-    new mapboxgl.Marker()
-      .setLngLat([lon, lat])
-      .addTo(map);
-  }
-
-  var layerList = document.getElementById('menu');
-  var inputs = layerList.getElementsByTagName('input');
-
-  function switchLayer(layer) {
-    var layerId = layer.target.id;
-    map.setStyle('mapbox://styles/mapbox/' + layerId + mapbox_style_verion);
-  }
-
-  for (var i = 0; i < inputs.length; i++) {
-    inputs[i].onclick = switchLayer;
-  }
-
-  map.addControl(new MapboxGeocoder({
-    accessToken: mapboxgl.accessToken
-  }));
-
-  map.addControl(new mapboxgl.GeolocateControl({
-    positionOptions: {
-      enableHighAccuracy: true
-    },
-    trackUserLocation: true
+  var map = initMap();
+  var geocoder = map.addControl(new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl
   }));
 
   map.on('click', (e) => {
     feature = JSON.stringify(e.lngLat);
     copyToClipboard(feature)
-    showInfo()
+    displayInfo()
   })
 
+  function initMap(){
+    /*
+      * Initialize a map with or without coordinates from URL parameters.
+      * If coordinates are given, display a zoom 18 map centered on the coordinates
+        otherwise, display a zoom 0 map centered at Mapbox's default coordinates.
+    */
+    var lat = {{ lat }} || 0.0;
+    var lon = {{ lon }} || 0.0;
+    var zoom = (lat === 0.0) ? 0.0 : 18.0;
+
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/satellite-streets-v9',
+      center: [lat, lon],
+      zoom: zoom,
+      scrollZoom: true
+    });
+
+    if (lat !== 0.0 && lon !== 0.0) {
+      new mapboxgl.Marker()
+        .setLngLat([lon, lat])
+        .addTo(map);
+    }
+
+    return map
+  }
+
   function copyToClipboard(str) {
+    // Copy lngLat to clipboard.
     const el = document.createElement('textarea');
     el.value = str;
     document.body.appendChild(el);
@@ -90,11 +69,13 @@
     document.body.removeChild(el);
   }
 
-  function showInfo() {
+  function displayInfo() {
+    // Display div with the ID "info" for a short period of time.
     var x = document.getElementById('info');
     x.className = 'show';
     setTimeout(function(){ x.className = x.className.replace('show', ''); }, 2000);
   }
+
   </script>
   </body>
 </html>
